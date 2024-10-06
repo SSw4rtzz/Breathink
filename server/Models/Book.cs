@@ -15,5 +15,7 @@
         public string? Language { get; set; }
 
         public double? AverageRating { get; set; }  // Média de classificação
+
+        public ICollection<Bookshelf> Bookshelves { get; set; } = new List<Bookshelf>();
     }
 }
