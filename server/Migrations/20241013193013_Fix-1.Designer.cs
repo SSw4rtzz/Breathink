@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241013193013_Fix-1")]
+    partial class Fix1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,13 +243,13 @@ namespace server.Migrations
                         {
                             Id = "admin-user-id",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c078d78f-4009-498f-bcb3-d26ebcc2b0a0",
+                            ConcurrencyStamp = "36d3ac3b-907f-4635-8c71-48a1a6219c30",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGCmQrlDWg8EKmRGrs07SpYUof/jnAwgKr0afqKjBG7/zq2N4MChSERr4ncdJNaMiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIIj44137Ws7LSMjJq5Yb1prxUhI2ZpIn8G0yZ+5uRLoSlkYGiTiXDVhkbF8ZjedWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50a06ef8-227e-4a9d-9c1f-ead7409a975a",
+                            SecurityStamp = "6fb4652e-f0bb-47c8-ba62-677c39b233ac",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             Username = "Admin"

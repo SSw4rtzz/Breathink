@@ -30,7 +30,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
             UserName = "admin",
             NormalizedUserName = "ADMIN",
             SecurityStamp = Guid.NewGuid().ToString(),
-            Nick = "Admin",
+            Username = "Admin",
             Bookshelves = new List<Bookshelf>()  // Inicializa a coleção como uma lista vazia
         };
 
