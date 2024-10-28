@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
 import Home from './pages/Home';
+import Navbar from './components/Navbar';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,16 +10,13 @@ function App() {
   return (
     <Router>
       <div>
-        
+        <Navbar />
         <Routes>
           <Route path="/" element={<div>Main Page</div>} />
           <Route path="/home" element={<Home />} />
         </Routes>
 
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/home">Home Page</Link>
-        </nav>
+
       </div>
     </Router>
   );
