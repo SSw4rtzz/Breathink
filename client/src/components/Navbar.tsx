@@ -6,6 +6,7 @@ const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
           <div className="navbar-title">BREATHINK</div>
+            <input type="text" name="text" placeholder="É por mim que procuras?" className="input"></input>
           <div className="navbar-links">
             <Link to="/">Início</Link>
             <Link to="/about">About</Link>
