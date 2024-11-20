@@ -12,35 +12,35 @@ class NavItemModel {
 
 List<NavItemModel> navItems = [
   NavItemModel(
-    title: 'Home',
+    title: 'chat',
     rive: RiveModel(
-      src: 'assets/rive/home.riv',
-      artboard: 'home',
-      stateMachineName: 'idle',
+      src: 'assets/RiveAssets/icons.riv',
+      artboard: 'CHAT',
+      stateMachineName: 'CHAT_Interactivity',
     ),
   ),
   NavItemModel(
     title: 'Search',
     rive: RiveModel(
-      src: 'assets/rive/search.riv',
-      artboard: 'search',
-      stateMachineName: 'idle',
+      src: 'assets/RiveAssets/icons.riv',
+      artboard: 'SEARCH',
+      stateMachineName: 'SEARCH_Interactivity',
     ),
   ),
   NavItemModel(
-    title: 'Profile',
+    title: 'Timer',
     rive: RiveModel(
-      src: 'assets/rive/profile.riv',
-      artboard: 'profile',
-      stateMachineName: 'idle',
+      src: 'assets/RiveAssets/icons.riv',
+      artboard: 'TIMER',
+      stateMachineName: 'TIMER_Interactivity',
     ),
   ),
   NavItemModel(
-    title: 'Settings',
+    title: 'Notification',
     rive: RiveModel(
-      src: 'assets/rive/settings.riv',
-      artboard: 'settings',
-      stateMachineName: 'idle',
+      src: 'assets/RiveAssets/icons.riv',
+      artboard: 'BELL',
+      stateMachineName: 'BELL_Interactivity',
     ),
   ),
 ];

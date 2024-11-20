@@ -4,7 +4,9 @@
 // Build: gera a interface do widget
 // Scaffold: estrutura básica de uma página
 
+import 'package:app_breathink/models/nav_item_model.dart';
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
 
 const Color botNavBarColor = Color(0xFF1E1E1E);
 
@@ -19,6 +21,7 @@ class BotNavBar extends StatefulWidget {
 
 class _BotNavBarState
     extends State<BotNavBar> {
+        List<SMIBool> riveIconInputs = [];
         // Gera a interface do widget
         @override
         Widget build(BuildContext context) {
@@ -29,8 +32,46 @@ class _BotNavBarState
                       padding: EdgeInsets.all(12),
                       margin: EdgeInsets.symmetric(horizontal: 24),
                       decoration: BoxDecoration(
-                          color: botNavBarColor.withOpacity(0.8)
+                          color: botNavBarColor.withOpacity(0.8),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                              ),
+                          ],
                       ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(
+                            navItems.length,
+                            (index) {
+                                final riveIcon = navItems[index].rive;
+                                return GestureDetector(
+                                    onTap: () {
+                                        riveIconInputs[index].change(true);
+                                    },
+                                child: SizedBox(
+                                    height: 36,
+                                    width: 36,
+                                    child: RiveAnimation.asset(
+                                        riveIcon.src,
+                                        artboard: riveIcon.artboard,
+                                        onInit: (artboard) {
+                                            StateMachineController? controller = StateMachineController.fromArtboard(artboard, riveIcon.stateMachineName);
+
+                                            artboard.addController(controller!);
+
+                                            riveIconInputs.add(controller.findInput<bool>('active') as SMIBool);
+                                        },
+                                    ),
+                                ),
+                                );
+                            },
+                      ),
+                    ),
                   ),
                 ),
             ); //Estrutura básica de uma página
