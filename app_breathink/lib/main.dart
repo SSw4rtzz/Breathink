@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rive_flutter/botnavbar.dart';
+import 'widgets/botnavbar.dart';
 
 void main() {
   runApp(const MyApp());

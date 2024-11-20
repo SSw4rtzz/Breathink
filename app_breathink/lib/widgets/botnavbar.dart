@@ -6,7 +6,7 @@
 
 import 'package:flutter/material.dart';
 
-const Color buttonNavBarColor = Color(0xFF1E1E1E);
+const Color botNavBarColor = Color(0xFF1E1E1E);
 
 
 class BotNavBar extends StatefulWidget {
@@ -22,6 +22,17 @@ class _BotNavBarState
         // Gera a interface do widget
         @override
         Widget build(BuildContext context) {
-            return Scaffold(); //Estrutura básica de uma página
+            return Scaffold(
+                bottomNavigationBar: SafeArea(
+                  child: Container(
+                      height: 56,
+                      padding: EdgeInsets.all(12),
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      decoration: BoxDecoration(
+                          color: botNavBarColor.withOpacity(0.8)
+                      ),
+                  ),
+                ),
+            ); //Estrutura básica de uma página
         }
     }
