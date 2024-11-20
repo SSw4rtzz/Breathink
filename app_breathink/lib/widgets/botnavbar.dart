@@ -22,6 +22,9 @@ class BotNavBar extends StatefulWidget {
 class _BotNavBarState
     extends State<BotNavBar> {
         List<SMIBool> riveIconInputs = [];
+        List<StateMachineController?> controllers = [];
+        int selectedNavIndex = 0;
+        List<String> pages = ["Chat", "Home", "Profile", "Notificações"]; // Páginas que o botão de navegação leva
 
         void animateTheIcon(int index) {
             riveIconInputs[index].change(true); // Ativa a animação
@@ -33,12 +36,25 @@ class _BotNavBarState
         void riveOnInit(Artboard artboard, {required String stateMachineName}) {
             StateMachineController? controller = StateMachineController.fromArtboard(artboard, stateMachineName);
             artboard.addController(controller!);
+            controllers.add(controller);
             riveIconInputs.add(controller.findInput<bool>('active') as SMIBool);
         }
+
+        @override
+        void dispose() {
+            for(var controller in controllers) {
+                controller?.dispose();
+            };
+            super.dispose();
+        }
+
         // Gera a interface do widget
         @override
         Widget build(BuildContext context) {
             return Scaffold(
+                body: Center(
+                    child: Text(pages[selectedNavIndex]),
+                ),
                 bottomNavigationBar: SafeArea(
                   child: Container(
                       height: 56,
@@ -65,17 +81,29 @@ class _BotNavBarState
                                 return GestureDetector(
                                     onTap: () {
                                         animateTheIcon(index);
+                                        setState(() {
+                                          selectedNavIndex = index;
+                                        });
                                     },
-                                child: SizedBox(
-                                    height: 36,
-                                    width: 36,
-                                    child: RiveAnimation.asset(
-                                        riveIcon.src,
-                                        artboard: riveIcon.artboard,
-                                        onInit: (artboard) {
-                                            riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName);
-                                            },
+                                child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AnimatedBar(isActive: selectedNavIndex == index),
+                                    SizedBox(
+                                        height: 36,
+                                        width: 36,
+                                        child: Opacity(
+                                            opacity: selectedNavIndex == index ? 1 : 0.5,
+                                          child: RiveAnimation.asset(
+                                              riveIcon.src,
+                                              artboard: riveIcon.artboard,
+                                              onInit: (artboard) {
+                                                  riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName);
+                                                  },
+                                          ),
+                                        ),
                                     ),
+                                  ],
                                 ),
                                 );
                             },
@@ -86,3 +114,26 @@ class _BotNavBarState
             ); //Estrutura básica de uma página
         }
     }
+
+class AnimatedBar extends StatelessWidget {
+  const AnimatedBar({
+    super.key,
+    required this.isActive,
+  });
+
+  final bool isActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        margin: EdgeInsets.only(bottom: 2),
+        height: 4,
+        width: isActive ? 20 : 0,
+        decoration: BoxDecoration(
+            color: Color(0xFF1E1E1E),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
+    );
+  }
+}
