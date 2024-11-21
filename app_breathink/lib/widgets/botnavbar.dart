@@ -33,19 +33,11 @@ class _BotNavBarState
             });
         }
 
-        void riveOnInit(Artboard artboard, {required String stateMachineName, required int index}) {
+        void riveOnInit(Artboard artboard, {required String stateMachineName}) {
             StateMachineController? controller = StateMachineController.fromArtboard(artboard, stateMachineName);
-            if (controller != null) {
-                artboard.addController(controller);
-                // Garante que o input é atribuído ao índice correto
-                if (riveIconInputs.length <= index) {
-                }
-                riveIconInputs[index] = controller.findInput<bool>('active') as SMIBool;
-                if (controllers.length <= index) {
-                    controllers.addAll(List.generate(index - controllers.length + 1, (_) => null));
-                }
-                controllers[index] = controller;
-            }
+            artboard.addController(controller!);
+            controllers.add(controller);
+            riveIconInputs.add(controller.findInput<bool>('active') as SMIBool);
         }
 
         @override
@@ -106,7 +98,7 @@ class _BotNavBarState
                                               riveIcon.src,
                                               artboard: riveIcon.artboard,
                                               onInit: (artboard) {
-                                                  riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName, index: index);
+                                                  riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName);
                                                   },
                                           ),
                                         ),
