@@ -33,103 +33,95 @@ class _BotNavBarState
             });
         }
 
+        void riveOnInit(Artboard artboard, {required String stateMachineName, required int index}) {
+            StateMachineController? controller = StateMachineController.fromArtboard(artboard, stateMachineName);
+            if (controller != null) {
+                artboard.addController(controller);
+                // Garante que o input é atribuído ao índice correto
+                if (riveIconInputs.length <= index) {
+                }
+                riveIconInputs[index] = controller.findInput<bool>('active') as SMIBool;
+                if (controllers.length <= index) {
+                    controllers.addAll(List.generate(index - controllers.length + 1, (_) => null));
+                }
+                controllers[index] = controller;
+            }
+        }
+
         @override
-void initState() {
-    super.initState();
+        void dispose() {
+            for(var controller in controllers) {
+                controller?.dispose();
+            };
+            super.dispose();
+        }
 
-    // Inicializar as listas com o tamanho correto baseado no número de botões
-    riveIconInputs = List<SMIBool?>.filled(navItems.length, null);
-    controllers = List<StateMachineController?>.filled(navItems.length, null);
-}
-
-void riveOnInit(Artboard artboard, {required String stateMachineName, required int index}) {
-    StateMachineController? controller = StateMachineController.fromArtboard(artboard, stateMachineName);
-    if (controller != null) {
-        artboard.addController(controller);
-
-        // Garante que o controlador e o input estão no índice correto
-        controllers[index] = controller;
-        riveIconInputs[index] = controller.findInput<bool>('active') as SMIBool;
-    }
-}
-
-void animateTheIcon(int index) {
-    if (riveIconInputs[index] != null) {
-        riveIconInputs[index]!.change(true); // Ativa a animação
-        Future.delayed(Duration(seconds: 1), () {
-            riveIconInputs[index]!.change(false); // Desativa a animação
-        });
-    }
-}
-
-@override
-Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(
-            child: Text(pages[selectedNavIndex]),
-        ),
-        bottomNavigationBar: SafeArea(
-            child: Container(
-                height: 64,
-                padding: EdgeInsets.all(11),
-                margin: EdgeInsets.symmetric(horizontal: 24),
-                decoration: BoxDecoration(
-                    color: botNavBarColor.withOpacity(0.8),
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                    boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
-                        ),
-                    ],
+        // Gera a interface do widget
+        @override
+        Widget build(BuildContext context) {
+            return Scaffold(
+                body: Center(
+                    child: Text(pages[selectedNavIndex]),
                 ),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: List.generate(
-                        navItems.length,
-                        (index) {
-                            final riveIcon = navItems[index].rive;
-                            return GestureDetector(
-                                onTap: () {
-                                    animateTheIcon(index);
-                                    setState(() {
-                                        selectedNavIndex = index;
-                                    });
-                                },
+                bottomNavigationBar: SafeArea(
+                  child: Container(
+                      height: 64,
+                      padding: EdgeInsets.all(11),
+                      margin: EdgeInsets.symmetric(horizontal: 24),
+                      decoration: BoxDecoration(
+                          color: botNavBarColor.withOpacity(0.8),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 1,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                              ),
+                          ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: List.generate(
+                            navItems.length,
+                            (index) {
+                                final riveIcon = navItems[index].rive;
+                                return GestureDetector(
+                                    onTap: () {
+                                        animateTheIcon(index);
+                                        setState(() {
+                                          selectedNavIndex = index;
+                                        });
+                                    },
                                 child: Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                        AnimatedBar(isActive: selectedNavIndex == index),
-                                        SizedBox(
-                                            height: 36,
-                                            width: 36,
-                                            child: Opacity(
-                                                opacity: selectedNavIndex == index ? 1 : 0.5,
-                                                child: RiveAnimation.asset(
-                                                    riveIcon.src,
-                                                    artboard: riveIcon.artboard,
-                                                    onInit: (artboard) {
-                                                        riveOnInit(
-                                                            artboard,
-                                                            stateMachineName: riveIcon.stateMachineName,
-                                                            index: index,
-                                                        );
-                                                    },
-                                                ),
-                                            ),
+                                  children: [
+                                    AnimatedBar(isActive: selectedNavIndex == index),
+                                    SizedBox(
+                                        height: 36,
+                                        width: 36,
+                                        child: Opacity(
+                                            opacity: selectedNavIndex == index ? 1 : 0.5,
+                                          child: RiveAnimation.asset(
+                                              riveIcon.src,
+                                              artboard: riveIcon.artboard,
+                                              onInit: (artboard) {
+                                                  riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName, index: index);
+                                                  },
+                                          ),
                                         ),
-                                    ],
+                                    ),
+                                  ],
                                 ),
-                            );
-                        },
+                                );
+                            },
+                      ),
                     ),
+                  ),
                 ),
-            ),
-        ),
-    );
-}
+            ); //Estrutura básica de uma página
+        }
+    }
 
 class AnimatedBar extends StatelessWidget {
   const AnimatedBar({
