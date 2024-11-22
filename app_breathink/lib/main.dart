@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/nav_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Breathink  '),
+
+      home: const NavMenu(),
+      //Código original
+      //home: const MyHomePage(title: 'Breathink  '),
     );
   }
 }
