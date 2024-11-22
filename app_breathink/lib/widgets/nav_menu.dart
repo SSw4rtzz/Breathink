@@ -6,7 +6,7 @@ class NavMenu extends StatelessWidget {
   const NavMenu({super.key});
 
   // Flag para alternar entre o menu arredondado flutuante e o menu padrão
-  final bool isRounded = false;
+  final bool isRounded = true;
 
   @override
   Widget build(BuildContext context) {
