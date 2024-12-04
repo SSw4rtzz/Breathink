@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import '/widgets/search.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Search(), // Usa o widget aqui
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Search(), // Search bar
+          ],
+        ),
       ),
     );
   }

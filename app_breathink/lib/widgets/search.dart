@@ -3,19 +3,18 @@ import 'package:iconsax/iconsax.dart';
 
 class Search extends StatelessWidget {
   final String hintText;
-
   const Search({super.key, this.hintText = 'Pesquisar'});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
+      margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: const Color(0xff1D1D1D).withOpacity(0.11),
             blurRadius: 40,
-            spreadRadius: 0,
+            spreadRadius: 0.0,
           ),
         ],
       ),
@@ -24,13 +23,15 @@ class Search extends StatelessWidget {
           filled: true,
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.all(15),
-          hintText: hintText,
+          hintText: 'Search',
           hintStyle: const TextStyle(
-            color: Color(0xff1D1D1D),
+            color: Color(0xffDDDADA),
             fontSize: 14,
           ),
           prefixIcon: const Icon(Iconsax.search_normal_1),
-          suffixIcon: const IntrinsicHeight(
+          suffixIcon: const Icon(Iconsax.filter_search),
+          
+          /*suffixIcon: const IntrinsicHeight(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -46,7 +47,8 @@ class Search extends StatelessWidget {
                 )
               ],
             ),
-          ),
+          ),*/
+          
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide.none,
