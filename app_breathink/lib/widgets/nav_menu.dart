@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
+import '/pages/home.dart';
 
 class NavMenu extends StatelessWidget {
   const NavMenu({super.key});
@@ -75,7 +76,7 @@ class NavMenu extends StatelessWidget {
                 ],
               ),
       ),
-      body: Obx(() => controller.screens[controller.selectedIndex.value]),
+      body: Obx(() => controller.pages[controller.selectedIndex.value]),
     );
   }
 
@@ -114,8 +115,8 @@ class NavMenu extends StatelessWidget {
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
-  final screens = [
-    Container(color: Colors.red),
+  final pages = [
+    const HomeScreen(),
     Container(color: Colors.green),
     Container(color: Colors.blue),
     Container(color: Colors.yellow),
