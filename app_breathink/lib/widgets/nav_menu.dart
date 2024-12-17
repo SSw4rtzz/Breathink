@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:get/get.dart';
 import '/pages/home.dart';
+import '/pages/bookcase.dart';
 
 class NavMenu extends StatelessWidget {
   const NavMenu({super.key});
@@ -117,8 +118,8 @@ class NavigationController extends GetxController {
 
   final pages = [
     const HomeScreen(),
-    Container(color: Colors.green),
     Container(color: Colors.blue),
+    BookcaseScreen(),
     Container(color: Colors.yellow),
   ];
 }
