@@ -6,21 +6,23 @@ class BookcaseScreen extends StatelessWidget {
     {'title': 'Lido', 'icon': Icons.check_circle, 'color': Colors.orange},
     {'title': 'Por Ler', 'icon': Icons.circle_outlined, 'color': Colors.grey},
     {'title': 'A Ler', 'icon': Icons.menu_book, 'color': Colors.blueAccent},
-    {'title': 'Emprestado', 'icon': Icons.swap_horiz, 'color': Colors.purpleAccent},
+    {'title': 'Transferidos', 'icon': Icons.swap_horiz, 'color': Colors.purpleAccent},
   ];
+
+  BookcaseScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Estante'),
+        title: const Text('Estante'),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () {
               // Adiciona um livro manualmente que não esteja na API
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Screen para adicionar livros')), //! ADICIONAR
+                const SnackBar(content: Text('Screen para adicionar livros')), //! ADICIONAR
               );
             },
           ),
@@ -34,11 +36,11 @@ class BookcaseScreen extends StatelessWidget {
             // Grid de cards
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 1.2,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // Cards por linha
+                  crossAxisSpacing: 5, // Espaçamento entre cards
+                  mainAxisSpacing: 5, // Espaçamento entre linhas
+                  childAspectRatio: 1.8, // Proporção dos cards
                 ),
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
@@ -56,26 +58,26 @@ class BookcaseScreen extends StatelessWidget {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey[850],
-                        borderRadius: BorderRadius.circular(12),
+                        color: Colors.white, // Background do card
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(category['icon'], color: category['color'], size: 40),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             category['title'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
-                          Text(
-                            '0 livros', //! FAZER CONTADOR DINÂMICO
+                          const Text(
+                            '20', //! FAZER CONTADOR DINÂMICO
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 15,
                               color: Colors.grey,
                             ),
                           ),
@@ -86,17 +88,17 @@ class BookcaseScreen extends StatelessWidget {
                 },
               ),
             ),
-            SizedBox(height: 20),
-            Text('Estatísticas de leitura',
+            const SizedBox(height: 20),
+            const Text('Estatísticas de leitura',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             Container(
               height: 100,
-              margin: EdgeInsets.only(top: 8),
+              margin: const EdgeInsets.only(top: 8),
               decoration: BoxDecoration(
                 color: Colors.grey[900],
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Gráfico de Estatísticas',
                   style: TextStyle(color: Colors.white54),
@@ -114,18 +116,18 @@ class BookcaseScreen extends StatelessWidget {
 class BookListScreen extends StatelessWidget {
   final String title;
 
-  const BookListScreen({Key? key, required this.title}) : super(key: key);
+  const BookListScreen({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title'),
+        title: Text(title),
       ),
       body: Center(
         child: Text(
           'Lista de livros: $title',
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
